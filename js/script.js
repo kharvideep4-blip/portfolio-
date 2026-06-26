@@ -51,7 +51,7 @@ function typeRole() {
 typeRole();
 
 // ============================================================
-// 3. DATA
+// 3. DATA (AI Mock Interview Platform FIRST)
 // ============================================================
 const skillsData = [
     { name: 'HTML5', icon: 'fab fa-html5', cat: 'Frontend' },
@@ -90,27 +90,71 @@ const educationData = [
     }
 ];
 
+// ===== PROJECTS DATA =====
 const projectsData = [
+    // ===== 1st: AI Mock Interview Platform (WIP) =====
+    {
+        title: 'AI Mock Interview Platform',
+        desc: 'An AI-powered mock interview platform that simulates real technical and HR interviews using Artificial Intelligence. Candidates answer questions using voice or text, while AI evaluates their performance in real-time.',
+        tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'AI Integration', 'Firebase'],
+        category: 'fullstack',
+        links: [{ label: 'Coming Soon', url: '#' }],
+        overview: 'The AI Mock Interview Platform simulates real technical and HR interviews using Artificial Intelligence. Candidates answer questions using voice or text, while AI evaluates their performance.',
+        features: [
+            'Login System',
+            'Resume Upload',
+            'Job Role Selection',
+            'AI Interview Questions',
+            'Voice Recognition',
+            'Speech-to-Text',
+            'Performance Score',
+            'Communication Analysis',
+            'Confidence Rating',
+            'Feedback Report',
+            'AI Suggestions'
+        ],
+        aiCapabilities: [
+            'Dynamic Question Generation',
+            'Answer Evaluation',
+            'Communication Analysis',
+            'Technical Accuracy Assessment',
+            'Personalized Learning Suggestions'
+        ],
+        additionalFeatures: [
+            'Interview History',
+            'Dashboard',
+            'Progress Tracking',
+            'Certificate Generation'
+        ],
+        challenge: 'Building a reliable AI engine that can evaluate responses in real-time with high accuracy across multiple domains and interview types.',
+        image: 'assets/project-ai-interview.jpg',
+        status: 'wip'
+    },
+    // ===== 2nd: The CyberTech =====
     {
         title: 'The CyberTech — Data Recovery & Security',
-        desc: 'A professional platform for data recovery, ransomware recovery, data migration, cyber security, and digital forensics services. Built with a clean, responsive UI. (Ongoing)',
+        desc: 'A professional platform for data recovery, ransomware recovery, data migration, cyber security, and digital forensics services. Built with a clean, responsive UI.',
         tech: ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap'],
         category: 'frontend',
         links: [{ label: 'Live Site', url: 'https://thecybertech.in/' }],
         features: ['Responsive design', 'Service showcase', 'Contact form', 'SEO optimized'],
         challenge: 'Ensuring fast load times while displaying large amounts of service data.',
-        image: 'assets/project-cybertech.jpg'
+        image: 'assets/project-cybertech.jpg',
+        status: 'ongoing'
     },
+    // ===== 3rd: SEWAI =====
     {
         title: 'SEWAI — Smart Temple Management System',
-        desc: 'A comprehensive temple management platform with governance, ritual management, financial tracking, legal compliance, community engagement, and analytics. (Ongoing)',
+        desc: 'A comprehensive temple management platform with governance, ritual management, financial tracking, legal compliance, community engagement, and analytics.',
         tech: ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap', 'Firebase'],
         category: 'fullstack',
         links: [{ label: 'Live Demo', url: 'https://sewai-website-dh6s.vercel.app/' }],
         features: ['User authentication', 'Ritual scheduling', 'Donation tracking', 'Analytics dashboard'],
         challenge: 'Managing complex relational data in a NoSQL environment.',
-        image: 'assets/project-sewai.jpg'
+        image: 'assets/project-sewai.jpg',
+        status: 'ongoing'
     },
+    // ===== 4th: Exam Portal =====
     {
         title: 'Exam Portal Web Application',
         desc: 'Full-featured exam management system with user authentication, exam creation, and result processing. Integrated with AI for smart analytics.',
@@ -119,8 +163,10 @@ const projectsData = [
         links: [{ label: 'Live Demo', url: 'https://frontend-iota-sooty-98.vercel.app/' }],
         features: ['Exam creation', 'Auto-grading', 'AI-powered analytics', 'Role-based access'],
         challenge: 'Implementing real-time exam monitoring and auto-grading algorithms.',
-        image: 'assets/project-exam.jpg'
+        image: 'assets/project-exam.jpg',
+        status: 'completed'
     },
+    // ===== 5th: Note Manager =====
     {
         title: 'AI-Assisted Note Manager',
         desc: 'Modern note-taking app with full CRUD, serverless PostgreSQL (Neon), and a neon-styled UI with antigravity animations. Built with Next.js, TypeScript, and Tailwind.',
@@ -129,7 +175,8 @@ const projectsData = [
         links: [{ label: 'Live Demo', url: 'https://note-manager-eight-gamma.vercel.app/' }],
         features: ['CRUD operations', 'Rich text editor', 'Real-time sync', 'Neon database'],
         challenge: 'Ensuring smooth animations while maintaining performance.',
-        image: 'assets/project-note.jpg'
+        image: 'assets/project-note.jpg',
+        status: 'completed'
     }
 ];
 
@@ -171,14 +218,45 @@ function renderTimeline(containerId, items, titleKey, subtitleKey, dateKey, desc
 
 function renderProjects() {
     const grid = document.getElementById('projectsGrid');
-    grid.innerHTML = projectsData.map((p, idx) => `
+    grid.innerHTML = projectsData.map((p, idx) => {
+        let statusBadge = '';
+        if (p.status === 'wip') {
+            statusBadge = `
+                <div class="project-status-badge wip">
+                    <i class="fas fa-spinner fa-spin"></i> Work in Progress
+                </div>
+            `;
+        } else if (p.status === 'ongoing') {
+            statusBadge = `
+                <div class="project-status-badge ongoing">
+                    <i class="fas fa-sync fa-spin"></i> Ongoing
+                </div>
+            `;
+        }
+
+        const imageHtml = p.image ? 
+            `<img src="${p.image}" alt="${p.title}" />` :
+            `<div class="no-image"><i class="fas fa-code"></i></div>`;
+
+        return `
         <div class="col-md-6 project-item fade-up">
-            <div class="project-card">
-                <div class="icon"><i class="fas fa-cube"></i></div>
+            <div class="project-card ${p.status === 'wip' ? 'wip-card' : ''}">
+                ${statusBadge}
+                <div class="project-image-wrap">
+                    ${imageHtml}
+                    ${p.status === 'wip' ? `
+                        <div class="wip-overlay">
+                            <div class="wip-loader">
+                                <div class="spinner"></div>
+                                <span>Building...</span>
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
                 <h3>${p.title}</h3>
                 <p>${p.desc}</p>
                 <div class="tech-stack">${p.tech.map(t => `<span>${t}</span>`).join('')}</div>
-                <div class="links d-flex flex-wrap gap-2 mt-2">
+                <div class="links d-flex flex-wrap gap-2">
                     ${p.links.map(l => `<a href="${l.url}" target="_blank"><i class="fas fa-arrow-right"></i> ${l.label}</a>`).join('')}
                     <button class="btn-detail" data-index="${idx}" data-bs-toggle="modal" data-bs-target="#projectModal">
                         <i class="fas fa-info-circle"></i> Details
@@ -186,7 +264,7 @@ function renderProjects() {
                 </div>
             </div>
         </div>
-    `).join('');
+    `}).join('');
 
     document.querySelectorAll('.btn-detail').forEach(btn => {
         btn.addEventListener('click', function() {
@@ -200,18 +278,49 @@ function openProjectModal(index) {
     const p = projectsData[index];
     document.getElementById('modalTitle').textContent = p.title;
     const body = document.getElementById('modalBody');
-    body.innerHTML = `
-        <p>${p.desc}</p>
+    
+    let statusBadge = '';
+    if (p.status === 'wip') {
+        statusBadge = `<span class="badge bg-warning text-dark mb-2"><i class="fas fa-spinner fa-spin"></i> Work in Progress</span>`;
+    } else if (p.status === 'ongoing') {
+        statusBadge = `<span class="badge bg-info mb-2"><i class="fas fa-sync fa-spin"></i> Ongoing</span>`;
+    }
+
+    const hasAICapabilities = p.aiCapabilities && p.aiCapabilities.length > 0;
+    const hasAdditional = p.additionalFeatures && p.additionalFeatures.length > 0;
+    const hasOverview = p.overview && p.overview.length > 0;
+
+    let html = `
+        ${statusBadge}
+        ${hasOverview ? `<h6 class="mt-2">Overview</h6><p>${p.overview}</p>` : `<p>${p.desc}</p>`}
         <div class="modal-tech-stack">${p.tech.map(t => `<span>${t}</span>`).join('')}</div>
-        <h6 class="mt-3">Key Features</h6>
-        <ul class="modal-features">${p.features.map(f => `<li>${f}</li>`).join('')}</ul>
-        ${p.challenge ? `<h6 class="mt-3">Challenge</h6><p>${p.challenge}</p>` : ''}
-        ${p.image ? `<img src="${p.image}" alt="${p.title}" class="img-fluid mt-3 rounded" />` : ''}
     `;
+
+    html += `<h6 class="mt-3">Features</h6><ul class="modal-features">${p.features.map(f => `<li>${f}</li>`).join('')}</ul>`;
+
+    if (hasAICapabilities) {
+        html += `<h6 class="mt-3">AI Capabilities</h6><ul class="modal-features">${p.aiCapabilities.map(f => `<li>${f}</li>`).join('')}</ul>`;
+    }
+
+    if (hasAdditional) {
+        html += `<h6 class="mt-3">Additional Features</h6><ul class="modal-features">${p.additionalFeatures.map(f => `<li>${f}</li>`).join('')}</ul>`;
+    }
+
+    if (p.challenge) {
+        html += `<h6 class="mt-3">Challenge</h6><p>${p.challenge}</p>`;
+    }
+
+    if (p.image) {
+        html += `<img src="${p.image}" alt="${p.title}" class="img-fluid mt-3 rounded" />`;
+    }
+
+    body.innerHTML = html;
+
     const link = document.getElementById('modalLiveLink');
-    if (p.links.length) {
+    if (p.links.length && p.links[0].url !== '#') {
         link.href = p.links[0].url;
         link.style.display = 'inline-block';
+        link.textContent = 'Live Demo';
     } else {
         link.style.display = 'none';
     }
@@ -232,7 +341,7 @@ function renderCourses() {
 }
 
 // ============================================================
-// 5. SCROLL ANIMATIONS (Intersection Observer)
+// 5. SCROLL ANIMATIONS
 // ============================================================
 function observeFadeElements() {
     const els = document.querySelectorAll('.fade-up');
